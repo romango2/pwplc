@@ -1,42 +1,48 @@
 package com.cfm.pwplc.controllers;
 
+import com.cfm.pwplc.service.PowerPointEditService;
 import com.cfm.pwplc.service.SongNamesListCreator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.xslf.usermodel.XMLSlideShow;
-import org.apache.poi.xslf.usermodel.XSLFSlide;
+import javafx.scene.control.TextField;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller {
     private final SongNamesListCreator listCreatorService = new SongNamesListCreator();
 
-    private static final String SONG_ROOT_PATH = "C://pwplc//pwplc//songs/";
-    private static final String PRAISE = "praise/";
-    private static final String WORSHIP = "worship/";
-
-
-    private final String DATE_FORMAT = "yyyy-MM-dd kk-mm";
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-
+    PowerPointEditService editService = new PowerPointEditService();
 
     @FXML
-    private Button CreateListButton;
+    private Button createListButton;
 
+    @FXML
+    private TextField praiseOne;
+    @FXML
+    private TextField praiseTwo;
+    @FXML
+    private TextField praiseThree;
 
+    @FXML
+    private TextField worshipOne;
+    @FXML
+    private TextField worshipTwo;
 
+    @FXML
+    private TextField praiseFour;
+    @FXML
+    private TextField praiseFive;
 
+    @FXML
+    private TextField worshipAltarCall;
+
+    @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
     }
@@ -44,80 +50,59 @@ public class Controller {
     @FXML
     public void createList(ActionEvent actionEvent) throws IOException {
 
-        List<String> songsList = listCreatorService.createSongList(Arrays.asList("1", "2", "3", "1", "2", "4", "5", "3"));
+//        createListButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent e) {
+        if ((praiseOne.getText() != null && praiseOne.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
+                (praiseTwo.getText() != null && praiseTwo.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
+                (praiseThree.getText() != null && praiseThree.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
+                (worshipOne.getText() != null && worshipOne.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
+                (worshipTwo.getText() != null && worshipTwo.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
+                (praiseFour.getText() != null && praiseFour.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
+                (praiseFive.getText() != null && praiseFive.getText().matches("^[1-9]?[0-9]{1}$|^100$"))
+//                        &&  (worshipAltarCall.getText() != null && worshipAltarCall.getText().matches("^[1-9]?[0-9]{1}$|^100$"))
+        ) {
 
-
-        File originalFile = new File("C://pwplc//pwplc//songs//init/List.pptx");
-
-        String timeStamp = LocalDateTime.now().format(formatter);
-        File file = new File("C://pwplc//pwplc//songs/List " + timeStamp + ".pptx");
-
-        copyFileUsingApacheCommonsIO(originalFile, file);
-
-        //opening an existing slide show
-        FileInputStream originalContent = new FileInputStream(file);
-        XMLSlideShow ppt = new XMLSlideShow(originalContent);
-
-        //taking the presentations that are to be merged
-
-
-
-        String praiseSongsFile1 = SONG_ROOT_PATH + PRAISE + songsList.get(0);
-        String praiseSongsFile2 = SONG_ROOT_PATH + PRAISE + songsList.get(1);
-        String praiseSongsFile3 = SONG_ROOT_PATH + PRAISE + songsList.get(2);
-        String worshipSongsFile1 = SONG_ROOT_PATH + WORSHIP + songsList.get(3);
-        String worshipSongsFile2 = SONG_ROOT_PATH + WORSHIP + songsList.get(4);
-        String praiseSongsFile4 = SONG_ROOT_PATH + PRAISE + songsList.get(5);
-        String praiseSongsFile5 = SONG_ROOT_PATH + PRAISE + songsList.get(6);
-        String worshipSongsFile3 = SONG_ROOT_PATH + WORSHIP + songsList.get(7);
-        String[] inputs = {praiseSongsFile1, praiseSongsFile2, praiseSongsFile3,
-                worshipSongsFile1, worshipSongsFile2,
-                praiseSongsFile4, praiseSongsFile5,
-                worshipSongsFile3};
-
-        for (String input : inputs) {
-
-            FileInputStream inputstream = new FileInputStream(input);
-            XMLSlideShow src = new XMLSlideShow(inputstream);
-
-            for (XSLFSlide srcSlide : src.getSlides()) {
-
-                //merging the contents
-                ppt.createSlide().importContent(srcSlide);
+            //ADD CODE TO ADD THE ITEM HERE!
+            List<String> songsList = listCreatorService.getSongNamesFromFile(createSongsNumbersList());
+//
+            try {
+                editService.createPowerPointFile(songsList);
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.set
+            alert.setTitle("Invalid data");
+            alert.setContentText("Please fill in valid song numbers");
+
+            alert.showAndWait();
+        }
+//            }
+//        });
+
+    }
+
+    private List<String> createSongsNumbersList() {
+        List<String> songsNumbersList = new ArrayList<>();
+
+        songsNumbersList.add(praiseOne.getText());
+        songsNumbersList.add(praiseTwo.getText());
+        songsNumbersList.add(praiseThree.getText());
+        songsNumbersList.add(worshipOne.getText());
+        songsNumbersList.add(worshipTwo.getText());
+        songsNumbersList.add(praiseFour.getText());
+        songsNumbersList.add(praiseFive.getText());
+        if ((worshipAltarCall.getText() != null && worshipAltarCall.getText().matches("^[1-9]?[0-9]{1}$|^100$"))) {
+            songsNumbersList.add(worshipAltarCall.getText());
         }
 
-//        String file3 = "C://Work/Cantece/combinedpresentation.pptx";
-
-        //creating the file object
-        FileOutputStream out = new FileOutputStream(file);
-
-        // saving the changes to a file
-        ppt.write(out);
-        System.out.println("Merging done successfully");
-        out.close();
+        return songsNumbersList;
 
 
-
-    /*    //opening an existing slide show
-        File file = new File("C://Work//Cantece/List.pptx");
-        FileInputStream inputstream = new FileInputStream(file);
-        XMLSlideShow ppt = new XMLSlideShow(inputstream);
-
-        //adding slides to the slodeshow
-        XSLFSlide slide1 = ppt.createSlide();
-        XSLFSlide slide2 = ppt.createSlide();
-
-        //saving the changes
-        FileOutputStream out = new FileOutputStream(file);
-        ppt.write(out);
-
-        System.out.println("Presentation edited successfully");
-        out.close();
-*/
     }
 
-    private static void copyFileUsingApacheCommonsIO(File source, File dest) throws IOException {
-        FileUtils.copyFile(source, dest);
-    }
+
 }

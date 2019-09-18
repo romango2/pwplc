@@ -17,9 +17,9 @@ public class SongNamesListCreator {
     private static final String WORSHIP_SONGS = "worship-songs.properties";
 
 
-    public List<String> createSongList(List<String> songNumbers) {
+    public List<String> getSongNamesFromFile(List<String> songNumbers) {
 
-        List<String> songNames = new ArrayList<String>();
+        List<String> songNames = new ArrayList<>();
 
         Properties praiseSongs = new Properties();
         Properties worshipSongs = new Properties();
@@ -36,10 +36,18 @@ public class SongNamesListCreator {
 
                 if ((index == 4) || (index == 5) || (index == 8)) {
                     // get the property value and print it out
-                    songNames.add(worshipSongs.getProperty(songNumber));
+                    if (praiseSongs.getProperty(songNumber) != null) {
+                        songNames.add(worshipSongs.getProperty(songNumber));
+                    } else {
+                        songNames.add(praiseSongs.getProperty("0"));
+                    }
                 } else {
                     // get the property value and print it out
-                    songNames.add(praiseSongs.getProperty(songNumber));
+                    if (praiseSongs.getProperty(songNumber) != null) {
+                        songNames.add(praiseSongs.getProperty(songNumber));
+                    } else {
+                        songNames.add(praiseSongs.getProperty("0"));
+                    }
                 }
                 index++;
             }
@@ -58,7 +66,7 @@ public class SongNamesListCreator {
         }
 
 
-         return songNames;
+        return songNames;
     }
 
 }

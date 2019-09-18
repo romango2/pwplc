@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cfm.pwplc.controllers.Controller">
     <children>
-      <SplitPane dividerPositions="0.13043478260869565, 0.36789297658862874, 0.5367892976588629, 0.7157190635451505, 0.8411371237458194" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.13043478260869565, 0.36789297658862874, 0.5367892976588629, 0.7023411371237458, 0.8311036789297659" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="113.0" prefWidth="638.0">
                <children>
@@ -24,31 +24,31 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="113.0" prefWidth="638.0">
                <children>
-                  <TextField id="praiseOne" alignment="CENTER" layoutX="320.0" layoutY="14.0" promptText="Praise song number" />
-                  <TextField id="praiseTwo" alignment="CENTER" layoutX="320.0" layoutY="49.0" promptText="Praise song number" />
-                  <TextField id="praiseThree" alignment="CENTER" layoutX="320.0" layoutY="88.0" promptText="Praise song number" />
+                  <TextField fx:id="praiseOne" alignment="CENTER" layoutX="325.0" layoutY="14.0" promptText="Praise song number" />
+                  <TextField fx:id="praiseTwo" alignment="CENTER" layoutX="325.0" layoutY="49.0" promptText="Praise song number" />
+                  <TextField fx:id="praiseThree" alignment="CENTER" layoutX="325.0" layoutY="87.0" promptText="Praise song number" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextField id="worshipTwo" alignment="CENTER" layoutX="320.0" layoutY="14.0" promptText="Worship song number" />
-                  <TextField id="worshipOne" alignment="CENTER" layoutX="320.0" layoutY="48.0" promptText="Worship song number" />
+                  <TextField fx:id="worshipOne" alignment="CENTER" layoutX="325.0" layoutY="14.0" promptText="Worship song number" />
+                  <TextField fx:id="worshipTwo" alignment="CENTER" layoutX="325.0" layoutY="48.0" promptText="Worship song number" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextField id="praiseFive" alignment="CENTER" layoutX="320.0" layoutY="21.0" promptText="Praise song number" />
-                  <TextField id="praiseFour" alignment="CENTER" layoutX="320.0" layoutY="54.0" promptText="Praise song number" />
+                  <TextField fx:id="praiseFour" alignment="CENTER" layoutX="325.0" layoutY="14.0" promptText="Praise song number" />
+                  <TextField fx:id="praiseFive" alignment="CENTER" layoutX="325.0" layoutY="54.0" promptText="Praise song number" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="595.0">
                <children>
-                  <TextField id="worshipAltarCall" alignment="CENTER" layoutX="320.0" layoutY="19.0" promptText="Worship song number" />
+                  <TextField fx:id="worshipAltarCall" alignment="CENTER" layoutX="325.0" layoutY="22.0" promptText="Worship song number" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="595.0">
                <children>
-                    <Button fx:id="CreateListButton" layoutX="343.0" layoutY="26.0" mnemonicParsing="false" onAction="#createList" prefWidth="112.0" text="Create List" />
+                    <Button fx:id="createListButton" layoutX="343.0" layoutY="37.0" mnemonicParsing="false" onAction="#createList" prefWidth="112.0" text="Create List" />
                </children>
             </AnchorPane>
         </items>

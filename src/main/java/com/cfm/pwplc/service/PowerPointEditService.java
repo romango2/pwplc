@@ -15,10 +15,10 @@ import java.util.List;
 
 public class PowerPointEditService {
 
-    private static final String SONG_ROOT_PATH = "C://pwplc//pwplc//songs/";
+    private static final String SONG_ROOT_PATH = "C://pwplc//songs/";
     private static final String PRAISE = "praise/";
     private static final String WORSHIP = "worship/";
-    private static final String BLANK_PAGE = "C://pwplc//pwplc//songs//init/Blank.pptx";
+    private static final String BLANK_PAGE = "C://pwplc//songs//init/Blank.pptx";
 
 
     private final String DATE_FORMAT = "yyyy-MM-dd kk mm";
@@ -27,11 +27,11 @@ public class PowerPointEditService {
 
     public void createPowerPointFile( List<String> songsList) throws IOException {
 
-        File originalFile = new File("C://pwplc//pwplc//songs//init/List.pptx");
+        File originalFile = new File("C://pwplc//songs//init/List.pptx");
 
         String timeStamp = LocalDateTime.now().format(formatter);
 
-        File file = new File("C://pwplc//pwplc//songs/List " + timeStamp + ".pptx");
+        File file = new File("C://pwplc//songs/List " + timeStamp + ".pptx");
 
         copyFileUsingApacheCommonsIO(originalFile, file);
 

@@ -1,8 +1,10 @@
 package com.cfm.pwplc.service;
 
-import java.io.FileInputStream;
+import com.cfm.pwplc.utils.Utils;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -25,21 +27,25 @@ public class SongNamesListCreator {
         Properties worshipSongs = new Properties();
         InputStream input = null;
 
-        try {
+        URL resource = Utils.getResource(PRAISE_SONGS);
+        URL resource2 = Utils.getResource(WORSHIP_SONGS);
+
+        try (InputStream praiseInputStream = resource.openStream();
+             InputStream worshipInputStream = resource2.openStream()) {
 
             // load a properties file
-            praiseSongs.load(new FileInputStream(PROPERTIES_ROOT_PATH + PRAISE_SONGS));
-            worshipSongs.load(new FileInputStream(PROPERTIES_ROOT_PATH + WORSHIP_SONGS));
+            praiseSongs.load(praiseInputStream);
+            worshipSongs.load(worshipInputStream);
 
             int index = 1;
             for (String songNumber : songNumbers) {
 
                 if ((index == 4) || (index == 5) || (index == 8)) {
                     // get the property value and print it out
-                    if (praiseSongs.getProperty(songNumber) != null) {
+                    if (worshipSongs.getProperty(songNumber) != null) {
                         songNames.add(worshipSongs.getProperty(songNumber));
                     } else {
-                        songNames.add(praiseSongs.getProperty("0"));
+                        songNames.add(worshipSongs.getProperty("0"));
                     }
                 } else {
                     // get the property value and print it out
@@ -55,16 +61,7 @@ public class SongNamesListCreator {
 
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-
 
         return songNames;
     }

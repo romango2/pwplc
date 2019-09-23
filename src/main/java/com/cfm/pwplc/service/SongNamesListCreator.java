@@ -14,7 +14,6 @@ import java.util.Properties;
  */
 public class SongNamesListCreator {
 
-    private static final String PROPERTIES_ROOT_PATH = "src/main/resources/";
     private static final String PRAISE_SONGS = "praise-songs.properties";
     private static final String WORSHIP_SONGS = "worship-songs.properties";
 
@@ -25,13 +24,12 @@ public class SongNamesListCreator {
 
         Properties praiseSongs = new Properties();
         Properties worshipSongs = new Properties();
-        InputStream input = null;
 
-        URL resource = Utils.getResource(PRAISE_SONGS);
-        URL resource2 = Utils.getResource(WORSHIP_SONGS);
+        URL praiseResource = Utils.getResource(PRAISE_SONGS);
+        URL worshipResource = Utils.getResource(WORSHIP_SONGS);
 
-        try (InputStream praiseInputStream = resource.openStream();
-             InputStream worshipInputStream = resource2.openStream()) {
+        try (InputStream praiseInputStream = praiseResource.openStream();
+             InputStream worshipInputStream = worshipResource.openStream()) {
 
             // load a properties file
             praiseSongs.load(praiseInputStream);

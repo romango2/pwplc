@@ -1,6 +1,7 @@
 package com.cfm.pwplc.service;
 
 import com.cfm.pwplc.utils.Utils;
+import javafx.scene.control.Alert;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
@@ -34,7 +35,9 @@ public class PowerPointEditService {
         final String SONG_ROOT_PATH = properties.getProperty("SONG_ROOT_PATH");
 
         File originalFile = new File(SONG_ROOT_PATH + properties.getProperty("INIT_SONGS_LIST"));
-        File file = new File(SONG_ROOT_PATH + timeStamp + properties.getProperty("PPTX"));
+
+        String fileName = timeStamp + properties.getProperty("PPTX");
+        File file = new File(SONG_ROOT_PATH + fileName);
 
         copyFileUsingApacheCommonsIO(originalFile, file);
 
@@ -61,6 +64,9 @@ public class PowerPointEditService {
         ppt.write(out);
         out.close();
         System.out.println("Merging done successfully");
+
+        showFileWasCreatedMessage(fileName);
+
     }
 
     private static void copyFileUsingApacheCommonsIO(File source, File dest) throws IOException {
@@ -90,4 +96,11 @@ public class PowerPointEditService {
         return inputs;
     }
 
+    private void showFileWasCreatedMessage(String fileName) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Done!");
+        alert.setContentText("'" + fileName + "' was successfully created");
+
+        alert.showAndWait();
+    }
 }

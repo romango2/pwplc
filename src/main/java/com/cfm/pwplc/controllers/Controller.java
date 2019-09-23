@@ -73,15 +73,12 @@ public class Controller {
             }
 
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.set
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Invalid data");
             alert.setContentText("Please fill in valid song numbers");
 
             alert.showAndWait();
         }
-//            }
-//        });
 
     }
 

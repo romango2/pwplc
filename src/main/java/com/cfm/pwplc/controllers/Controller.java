@@ -89,10 +89,11 @@ public class Controller {
         songsNumbersList.add(praiseFive.getText());
         if ((worshipAltarCall.getText() != null && worshipAltarCall.getText().matches("^[1-9]?[0-9]{1}$|^100$"))) {
             songsNumbersList.add(worshipAltarCall.getText());
+        }else{
+            showInvalidDataWarning("Invalid final song number.\nThe slideShow will be created without the last song");
         }
 
         return songsNumbersList;
-
     }
 
     @FXML
@@ -115,7 +116,7 @@ public class Controller {
             List<String> songsList = listCreatorService.getFinalSongNamesFromFile(worshipAltarCall.getText());
             editService.createFinalSongPresentation(songsList);
         } else {
-            showInvalidDataWarning("Please fill a valid final song number");
+            showInvalidDataWarning("Please use a valid song number for the final song");
         }
 
     }

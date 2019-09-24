@@ -19,8 +19,6 @@ public class Controller {
 
     PowerPointEditService editService = new PowerPointEditService();
 
-    @FXML
-    private Button createListButton;
 
     @FXML
     private TextField praiseOne;
@@ -43,16 +41,19 @@ public class Controller {
     private TextField worshipAltarCall;
 
     @FXML
-    public void initialize(URL location, ResourceBundle resources) {
+    private Button createListButton;
+    @FXML
+    private Button finalSongButton;
+    @FXML
+    private Button clearButton;
 
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
     }
 
     @FXML
     public void createList(ActionEvent actionEvent) throws IOException {
 
-//        createListButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent e) {
         if ((praiseOne.getText() != null && praiseOne.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
                 (praiseTwo.getText() != null && praiseTwo.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
                 (praiseThree.getText() != null && praiseThree.getText().matches("^[1-9]?[0-9]{1}$|^100$")) &&
@@ -63,9 +64,8 @@ public class Controller {
 //                        &&  (worshipAltarCall.getText() != null && worshipAltarCall.getText().matches("^[1-9]?[0-9]{1}$|^100$"))
         ) {
 
-            //ADD CODE TO ADD THE ITEM HERE!
             List<String> songsList = listCreatorService.getSongNamesFromFile(createSongsNumbersList());
-//
+
             try {
                 editService.createPowerPointFile(songsList);
             } catch (IOException e1) {
@@ -73,13 +73,8 @@ public class Controller {
             }
 
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Invalid data");
-            alert.setContentText("Please fill in valid song numbers");
-
-            alert.showAndWait();
+            showInvalidDataWarning("Please fill in valid song numbers");
         }
-
     }
 
     private List<String> createSongsNumbersList() {
@@ -98,8 +93,39 @@ public class Controller {
 
         return songsNumbersList;
 
+    }
+
+    @FXML
+    public void clearSongsNumbers(ActionEvent actionEvent) throws IOException {
+        praiseOne.clear();
+        praiseTwo.clear();
+        praiseThree.clear();
+        worshipOne.clear();
+        worshipTwo.clear();
+        praiseFour.clear();
+        praiseFive.clear();
+        worshipAltarCall.clear();
+    }
+
+    @FXML
+    public void createFinalSongPresentation(ActionEvent actionEvent) throws IOException {
+
+        if ((worshipAltarCall.getText() != null && worshipAltarCall.getText().matches("^[1-9]?[0-9]{1}$|^100$"))) {
+
+            List<String> songsList = listCreatorService.getFinalSongNamesFromFile(worshipAltarCall.getText());
+            editService.createFinalSongPresentation(songsList);
+        } else {
+            showInvalidDataWarning("Please fill a valid final song number");
+        }
 
     }
 
+    private void showInvalidDataWarning(String contentText) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Invalid data");
+        alert.setContentText(contentText);
+
+        alert.showAndWait();
+    }
 
 }

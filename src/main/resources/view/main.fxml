@@ -49,6 +49,8 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="70.0" prefWidth="595.0">
                <children>
                     <Button fx:id="createListButton" layoutX="343.0" layoutY="37.0" mnemonicParsing="false" onAction="#createList" prefWidth="112.0" text="Create List" />
+                  <Button fx:id="clearButton" layoutX="50.0" layoutY="37.0" mnemonicParsing="false" onAction="#clearSongsNumbers" prefWidth="112.0" text="Clear" />
+                  <Button fx:id="finalSongButton" layoutX="629.0" layoutY="37.0" mnemonicParsing="false" onAction="#createFinalSongPresentation" prefWidth="112.0" text="Create Final Song" />
                </children>
             </AnchorPane>
         </items>

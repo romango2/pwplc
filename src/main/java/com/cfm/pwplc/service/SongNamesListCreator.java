@@ -37,16 +37,15 @@ public class SongNamesListCreator {
 
             int index = 1;
             for (String songNumber : songNumbers) {
-
                 if ((index == 4) || (index == 5) || (index == 8)) {
-                    // get the property value and print it out
+                    //  read file name from properties file
                     if (worshipSongs.getProperty(songNumber) != null) {
                         songNames.add(worshipSongs.getProperty(songNumber));
                     } else {
                         songNames.add(worshipSongs.getProperty("0"));
                     }
                 } else {
-                    // get the property value and print it out
+                    //  read file name from properties file
                     if (praiseSongs.getProperty(songNumber) != null) {
                         songNames.add(praiseSongs.getProperty(songNumber));
                     } else {
@@ -56,11 +55,33 @@ public class SongNamesListCreator {
                 index++;
             }
 
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return songNames;
+    }
 
+    public List<String> getFinalSongNamesFromFile(String songNumber) {
+
+        List<String> songNames = new ArrayList<>();
+
+        Properties worshipSongs = new Properties();
+        URL worshipResource = Utils.getResource(WORSHIP_SONGS);
+
+        try (InputStream worshipInputStream = worshipResource.openStream()) {
+
+            // load a properties file
+            worshipSongs.load(worshipInputStream);
+
+            // read file name from properties file
+            if (worshipSongs.getProperty(songNumber) != null) {
+                songNames.add(worshipSongs.getProperty(songNumber));
+            } else {
+                songNames.add(worshipSongs.getProperty("0"));
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         return songNames;
     }
 

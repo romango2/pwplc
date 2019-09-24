@@ -125,7 +125,7 @@ public class PowerPointEditService {
 
         File originalFile = new File(SONG_ROOT_PATH + properties.getProperty("BLANK_PAGE"));
 
-        String finalSongFileName = "Altar " + timeStamp + properties.getProperty("PPTX");
+        String finalSongFileName = "AltarCall " + timeStamp + properties.getProperty("PPTX");
         File file = new File(SONG_ROOT_PATH + finalSongFileName);
 
         copyFileUsingApacheCommonsIO(originalFile, file);

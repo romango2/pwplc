@@ -2,6 +2,8 @@ package com.cfm.pwplc.service;
 
 import com.cfm.pwplc.utils.Utils;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
@@ -105,6 +107,10 @@ public class PowerPointEditService {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Done!");
         alert.setContentText("'" + fileName + "' was successfully created");
+
+//        alert.setGraphic(new ImageView(this.getClass().getResource("img/help.png").toString()));
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(this.getClass().getResource("/icons/logo.png").toString()));
 
         alert.showAndWait();
     }

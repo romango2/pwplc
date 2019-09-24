@@ -90,7 +90,7 @@ public class Controller {
         if ((worshipAltarCall.getText() != null && worshipAltarCall.getText().matches("^[1-9]?[0-9]{1}$|^100$"))) {
             songsNumbersList.add(worshipAltarCall.getText());
         }else{
-            showInvalidDataWarning("Invalid final song number.\nThe slideShow will be created without the last song");
+            showInvalidDataWarning("Invalid final song number.\nThe PowerPoint file will be created without the last song.");
         }
 
         return songsNumbersList;
